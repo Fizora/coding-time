@@ -1,89 +1,110 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id" class="h-full">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Jam Digital Full Screen - Dark Theme</title>
-
-        <!-- Tailwind CSS via CDN -->
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-        <style>
-            /* Animasi halus untuk detik */
-            .animate-pulse-slow {
-                animation: pulse 1s infinite;
-            }
-            @keyframes pulse {
-                0%,
-                100% {
-                    opacity: 1;
-                }
-                50% {
-                    opacity: 0.7;
-                }
-            }
-        </style>
-    </head>
-    <body
-        class="flex h-full items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white"
-    >
-        <div class="space-y-4 text-center">
-            <!-- Jam Utama -->
-            <h1 class="text-4xl">Code Working</h1>
-            <div
-                id="clock"
-                class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text font-mono text-8xl font-bold tracking-tight text-transparent drop-shadow-lg md:text-9xl"
-            >
-                00:00:00
-            </div>
-
-            <!-- Tanggal -->
-            <div
-                id="date"
-                class="text-2xl font-light tracking-wider text-gray-300 md:text-3xl"
-            >
-                Senin, 1 Januari 2024
-            </div>
-
-            <!-- Detik berkedip (opsional visual) -->
-            <div class="mt-4 flex justify-center gap-1">
-                <span
-                    class="animate-pulse-slow h-2 w-2 rounded-full bg-cyan-400"
-                ></span>
-                <span
-                    class="animate-pulse-slow h-2 w-2 rounded-full bg-purple-400 delay-500"
-                ></span>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jam Digital Monokrom - Dark Theme</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    /* Animasi halus untuk titik dua */
+    .animate-pulse-slow {
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    /* Kotak glassmorphism - abu-abu transparan */
+    .glass {
+      background: rgba(55, 65, 81, 0.25); /* gray-700/25 */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(75, 85, 99, 0.4);
+    }
+  </style>
+</head>
+<body class="h-full bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white flex items-center justify-center overflow-hidden">
+  <div class="text-center space-y-8">
+    <!-- Container Jam: Segmen Terpisah -->
+    <div class="flex justify-center items-center gap-3 md:gap-5">
+      
+      <!-- Jam -->
+      <div id="hours-box" class="glass rounded-2xl px-5 py-7 md:px-7 md:py-9 shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105">
+        <div id="hours" class="text-7xl md:text-9xl font-bold font-mono text-white">
+          00
         </div>
+      </div>
 
-        <!-- JavaScript Native -->
-        <script>
-            function updateClock() {
-                const now = new Date();
+      <!-- Pemisah -->
+      <div class="text-7xl md:text-9xl font-thin text-gray-400 animate-pulse-slow">
+        :
+      </div>
 
-                // Format jam: 2 digit
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                const seconds = String(now.getSeconds()).padStart(2, '0');
+      <!-- Menit -->
+      <div id="minutes-box" class="glass rounded-2xl px-5 py-7 md:px-7 md:py-9 shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105">
+        <div id="minutes" class="text-7xl md:text-9xl font-bold font-mono text-white">
+          00
+        </div>
+      </div>
 
-                // Format tanggal Indonesia
-                const options = {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                };
-                const dateStr = now.toLocaleDateString('id-ID', options);
+      <!-- Pemisah -->
+      <div class="text-7xl md:text-9xl font-thin text-gray-400 animate-pulse-slow delay-500">
+        :
+      </div>
 
-                // Update DOM
-                document.getElementById('clock').textContent =
-                    `${hours}:${minutes}:${seconds}`;
-                document.getElementById('date').textContent = dateStr;
-            }
+      <!-- Detik -->
+      <div id="seconds-box" class="glass rounded-2xl px-5 py-7 md:px-7 md:py-9 shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105">
+        <div id="seconds" class="text-7xl md:text-9xl font-bold font-mono text-white">
+          00
+        </div>
+      </div>
 
-            // Update setiap detik
-            updateClock();
-            setInterval(updateClock, 1000);
-        </script>
-    </body>
+    </div>
+
+    <!-- Tanggal -->
+    <div id="date" class="text-xl md:text-2xl font-light text-gray-400 tracking-widest uppercase">
+      Senin, 1 Januari 2024
+    </div>
+
+    <!-- Indikator detik (opsional, monokrom) -->
+    <div class="flex justify-center gap-2 mt-6">
+      <span class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-pulse-slow"></span>
+      <span class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-pulse-slow delay-500"></span>
+      <span class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-pulse-slow delay-1000"></span>
+    </div>
+  </div>
+
+  <!-- JavaScript Native -->
+  <script>
+    function updateClock() {
+      const now = new Date();
+      
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      // Update angka
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+
+      // Format tanggal Indonesia
+      const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      };
+      const dateStr = now.toLocaleDateString('id-ID', options);
+      document.getElementById('date').textContent = dateStr;
+    }
+
+    // Update tiap detik
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
 </html>
